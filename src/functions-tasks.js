@@ -18,7 +18,7 @@
  *
  */
 function getCurrentFunctionName() {
-  throw new Error('Not implemented');
+  return getCurrentFunctionName.name;
 }
 
 /**
@@ -32,8 +32,12 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  if (func !== undefined && func !== null) {
+    const string = func.toString();
+    return string;
+  }
+  return '';
 }
 
 /**
@@ -50,8 +54,13 @@ function getFunctionBody(/* func */) {
  *  ]) => [0, 1, 2]
  *
  */
-function getArgumentsCount(/* funcs */) {
-  throw new Error('Not implemented');
+function getArgumentsCount(funcs) {
+  if (funcs.length !== 0) {
+    return funcs.map((item) => {
+      return item.length;
+    }, []);
+  }
+  return funcs;
 }
 
 /**
@@ -72,6 +81,8 @@ function getArgumentsCount(/* funcs */) {
  */
 function getPowerFunction(/* exponent */) {
   throw new Error('Not implemented');
+  // console.log(this);
+  // return this ** exponent;
 }
 
 /**
@@ -88,6 +99,17 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom()      => null
  */
 function getPolynom() {
+  // throw new Error('Not implemented');
+  // switch(num.length) {
+  //   case 0:
+  //     return null;
+  //     break;
+  //   case 1: 
+  //       return function poly(num) {
+  //         return num
+  //       }
+  //     break;
+  // }
   throw new Error('Not implemented');
 }
 
@@ -105,8 +127,33 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const memoize = (fn) => {
+    let cache = {};
+    return (...args) => {
+      let n = args[0];
+      if (n in cache) {
+        console.log('Fetching from cache', n);
+        return cache[n];
+      }
+      else {
+        console.log('Calculating result', n);
+        let result = fn(n);
+        cache[n] = result;
+        return result;
+      }
+    }
+  }
+  const factorial = memoize(
+    (x) => {
+      if (x === 0) {
+        return 1;
+      }
+      else {
+        return x * factorial(x - 1);
+      }
+    }
+  );
 }
 
 /**
